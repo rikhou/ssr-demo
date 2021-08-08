@@ -1,9 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
 
 export default () => (
-    <div>
-        <h1>Page Home.</h1>
-        <Link to="/post">Link to Post</Link>
-    </div>
-);
+  <div>
+    <h1>Page Home.</h1>
+  </div>
+)
