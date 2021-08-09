@@ -1,7 +1,14 @@
 import React from 'react'
 
-export default () => (
-  <div>
-    <h1>Page Home.</h1>
-  </div>
-)
+export default () => {
+  function onClick() {
+    console.log('Click')
+  }
+
+  return (
+    <div>
+      <h1>Page Home.</h1>
+      <button onClick={onClick}>Click</button>
+    </div>
+  )
+}
