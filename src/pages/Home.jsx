@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export default () => {
   function onClick() {
@@ -9,6 +10,9 @@ export default () => {
     <div>
       <h1>Page Home.</h1>
       <button onClick={onClick}>Click</button>
+      <div>
+        <Link to='/post'>Link to Post</Link>
+      </div>
     </div>
   )
 }

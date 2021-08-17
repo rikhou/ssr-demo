@@ -1,4 +1,12 @@
 import React from 'React'
-import Home from './pages/Home'
+import {Switch, Route} from 'react-router-dom'
 
-export default () => <Home />
+import Home from './pages/Home'
+import Post from './pages/Post'
+
+export default () => (
+  <Switch>
+    <Route exact path='/' component={Home} />
+    <Route exact path='/post' component={Post} />
+  </Switch>
+)
