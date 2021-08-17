@@ -16,7 +16,12 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        use: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['@babel/plugin-transform-runtime']
+          }
+        },
         exclude: /node_modules/
       }
     ]

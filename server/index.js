@@ -10,7 +10,8 @@ app.use(express.static('dist'))
 app.use(express.static('public'))
 app.get('/*', (req, res) => {
   const currentRoute = routes.find((route) => matchPath(req.url, route)) || {}
-  const promise = currentRoute.fetchData ? currentRoute.fetchData() : Promise.resolve(null)
+  const component = currentRoute.component
+  const promise = component.getInitialProps ? component.getInitialProps() : Promise.resolve(null)
 
   promise.then((data) => {
     const context = {
@@ -36,7 +37,7 @@ app.get('/*', (req, res) => {
                     <script src="/app.js"></script>
                 </body>
                 </html>
-    
+
             `
     }
     res.send(template())

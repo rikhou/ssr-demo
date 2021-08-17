@@ -3,6 +3,11 @@ import {Link} from 'react-router-dom'
 import fetchData from '../helpers/fetchData'
 
 export default class Post extends Component {
+  // static async getInitialProps() {
+  //   const data = await fetchData()
+  //   return data
+  // }
+
   constructor(props) {
     super(props)
     if (props.staticContext && props.staticContext.data) {
@@ -52,4 +57,9 @@ export default class Post extends Component {
       </div>
     )
   }
+}
+
+Post.getInitialProps = async () => {
+  const data = await fetchData()
+  return data
 }
