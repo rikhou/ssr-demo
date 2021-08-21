@@ -1,41 +1,30 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import fetchData from '../helpers/fetchData'
+import {DataContext} from '../DataProvider'
 
 export default class Post extends Component {
   // static async getInitialProps() {
   //   const data = await fetchData()
   //   return data
   // }
+  static contextType = DataContext
 
-  constructor(props) {
+  constructor(props, context) {
     super(props)
     if (props.staticContext && props.staticContext.data) {
       console.log('server side render')
-      this.state = {
-        post: props.staticContext.data
-      }
+      this.state = {post: props.staticContext.data}
     } else {
       console.log('client side render')
-      if (window.__ROUTE_DATA__) {
-        this.state = {
-          post: window.__ROUTE_DATA__
-        }
-        delete window.__ROUTE_DATA__
-      } else {
-        this.state = {
-          post: {}
-        }
-      }
+      this.state = {post: context}
     }
   }
 
   componentDidMount() {
-    if (!window.__ROUTE_DATA__) {
-      fetchData().then((data) => {
-        this.setState({
-          post: data
-        })
+    if (Object.keys(this.state.post).length === 0) {
+      Post.getInitialProps().then((data) => {
+        this.setState({post: data})
       })
     }
   }

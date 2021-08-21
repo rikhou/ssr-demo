@@ -33,7 +33,7 @@ app.get('/*', (req, res) => {
                 </head>
                 <body>
                     <div id="root">${renderedString}</div>
-                    <script>window.__ROUTE_DATA__ = ${JSON.stringify(data)}</script>
+                    <script>window.__DATA__ = ${JSON.stringify(data)}</script>
                     <script src="/app.js"></script>
                 </body>
                 </html>
