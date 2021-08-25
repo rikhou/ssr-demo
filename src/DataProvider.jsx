@@ -5,9 +5,11 @@ export const DataContext = createContext({})
 export default class DataProvider extends React.Component {
   constructor(props) {
     super(props)
+    this.initialData = window.__DATA__ || {}
+    delete window.__ROUTE_DATA__
   }
 
   render() {
-    return <DataContext.Provider value={this.props.initialData || {}}>{this.props.children}</DataContext.Provider>
+    return <DataContext.Provider value={this.initialData || {}}>{this.props.children}</DataContext.Provider>
   }
 }
