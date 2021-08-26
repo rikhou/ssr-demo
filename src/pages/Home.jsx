@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-export default () => {
+const Home = () => {
   function onClick() {
     console.log('Click')
   }
@@ -16,3 +16,9 @@ export default () => {
     </div>
   )
 }
+
+Home.getInitialProps = async () => {
+  return {}
+}
+
+export default Home

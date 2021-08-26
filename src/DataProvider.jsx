@@ -10,6 +10,6 @@ export default class DataProvider extends React.Component {
   }
 
   render() {
-    return <DataContext.Provider value={this.initialData || {}}>{this.props.children}</DataContext.Provider>
+    return <DataContext.Provider value={this.initialData}>{this.props.children}</DataContext.Provider>
   }
 }
