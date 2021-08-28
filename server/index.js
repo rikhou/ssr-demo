@@ -3,22 +3,21 @@ import React from 'react'
 import {renderToString} from 'react-dom/server'
 import {matchPath} from 'react-router-dom'
 import App from './App'
+import {getServerStore} from '../src/store'
 import routes from '../src/routes'
 
 const app = express()
 app.use(express.static('dist'))
 app.use(express.static('public'))
 app.get('/*', (req, res) => {
+  const store = getServerStore()
   const currentRoute = routes.find((route) => matchPath(req.url, route)) || {}
   const component = currentRoute.component
-  const promise = component.getInitialProps ? component.getInitialProps() : Promise.resolve(null)
-
-  promise.then((data) => {
-    const context = {
-      data
-    }
-
-    const renderedString = renderToString(<App context={context} location={req.url} />)
+  const getInitialProps = component.getInitialProps
+    ? currentRoute.component.getInitialProps(store)
+    : Promise.resolve(null)
+  getInitialProps.then(() => {
+    const renderedString = renderToString(<App location={req.url} store={store} />)
 
     function template() {
       return `
@@ -33,11 +32,12 @@ app.get('/*', (req, res) => {
                 </head>
                 <body>
                     <div id="root">${renderedString}</div>
-                    <script>window.__DATA__ = ${JSON.stringify(data)}</script>
+                    <script>window.__DATA__ = ${
+                      component.getInitialProps ? JSON.stringify(store.getState()) : null
+                    }</script>
                     <script src="/app.js"></script>
                 </body>
                 </html>
-
             `
     }
     res.send(template())

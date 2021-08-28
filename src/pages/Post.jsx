@@ -1,9 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import fetchData from '../helpers/fetchData'
+import {useSelector, shallowEqual} from 'react-redux'
+import {setPost} from '../store/post/createActions'
 
-const Post = (props) => {
-  const post = props.data
+const Post = () => {
+  const post = useSelector((state) => state.post.data, shallowEqual)
   return (
     <div>
       <h1>Page Post</h1>
@@ -20,9 +21,8 @@ const Post = (props) => {
   )
 }
 
-Post.getInitialProps = async () => {
-  const data = await fetchData()
-  return data
-}
+Post.getInitialProps = (store) => store.dispatch(setPost())
+
+// Post.getInitialProps = async (store) => setPost(store.dispatch)
 
 export default Post
