@@ -11,13 +11,14 @@ export default class Post extends Component {
         post: props.staticContext.data
       }
     } else {
-      console.log('client side render')
       if (window.__ROUTE_DATA__) {
+        console.log('client side render raised by SSR')
         this.state = {
           post: window.__ROUTE_DATA__
         }
         delete window.__ROUTE_DATA__
       } else {
+        console.log('client side render')
         this.state = {
           post: {}
         }
